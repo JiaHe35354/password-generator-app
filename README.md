@@ -33,8 +33,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [My solution]()
-- Live Site URL: [Live site URL]()
+- Solution URL: [My solution](https://www.frontendmentor.io/solutions/password-generator-with-css-and-js-UN8gmauoHH)
+- Live Site URL: [Live site URL](https://password-generator-app-jiah.netlify.app/)
 
 ## My process
 
