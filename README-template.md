@@ -1,6 +1,6 @@
 # Frontend Mentor - Password generator app solution
 
-This is a solution to the [Password generator app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/password-generator-app-Mr8CLycqjh). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is my solution to the [Password generator app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/password-generator-app-Mr8CLycqjh). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Table of contents
 
@@ -14,9 +14,6 @@ This is a solution to the [Password generator app challenge on Frontend Mentor](
   - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
-
-**Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
 
@@ -32,20 +29,12 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+![Screenshot](./screenshot.png)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [My solution]()
+- Live Site URL: [Live site URL]()
 
 ## My process
 
@@ -54,61 +43,133 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 - Semantic HTML5 markup
 - CSS custom properties
 - Flexbox
-- CSS Grid
-- Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+- Vanilla JavaScript
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+Throughout this project, I practiced my CSS and JavaScript skills by building a password generator. Here are some of the key things I learned:
 
-To see how you can add code snippets, see below:
+#### How to Style the Range Input Across Browsers
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
+Styling the input[type="range"] is tricky because different browsers render it differently by default. To make the styling consistent, I learned to use vendor-specific pseudo-elements like ::-webkit-slider-thumb for Chrome/Safari and ::-moz-range-thumb for Firefox.
+
+Here's a simplified example of the cross-browser styling I implemented:
+
 ```css
-.proud-of-this-css {
-  color: papayawhip;
+input[type="range"]::-webkit-slider-runnable-track {
+  background: var(--color-grey-900);
+  height: 0.8rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -10px;
+  background-color: var(--color-grey-200);
+  height: 2.8rem;
+  width: 2.8rem;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: all 0.2s ease-in-out;
+}
+
+input[type="range"]::-moz-range-track {
+  background: var(--color-grey-900);
+  height: 0.8rem;
+}
+
+input[type="range"]::-moz-range-thumb {
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-grey-200);
+  height: 2.8rem;
+  width: 2.8rem;
+  border: 2px solid transparent;
+  transition: all 0.2s ease-in-out;
 }
 ```
+
+#### Generating Passwords with JavaScript Based on User Selections
+
+I used JavaScript to dynamically generate a password based on the user's selected options (uppercase, lowercase, numbers, and symbols). Here's how it works:
+
 ```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
+function genPassword(length, upper, lower, num, symbol) {
+  const lowerChars = "abcdefghijklmnopqrstuvwxyz";
+  const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const numChars = "0123456789";
+  const specialChars = "!@#$%^&*()-_=+[]{}|;:,.<>?";
+
+  let chars = "";
+  if (upper) chars += upperChars;
+  if (lower) chars += lowerChars;
+  if (num) chars += numChars;
+  if (symbol) chars += specialChars;
+
+  let pass = "";
+  for (let i = 0; i < length; i++) {
+    const randIdx = Math.floor(Math.random() * chars.length);
+    pass += chars[randIdx];
+  }
+
+  return pass;
 }
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+#### Putting It All Together with the generate() Function
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+The generate() function handles the UI logic and ensures that:
+
+- A default password is shown when no options are selected.
+
+- A strong password is generated according to selected criteria.
+
+- The password strength is evaluated and displayed visually.
+
+```js
+function generate() {
+  const lengthValue = +rangeInput.value;
+
+  const upper = upperLetter.checked;
+  const lower = lowerLetter.checked;
+  const num = number.checked;
+  const sym = symbol.checked;
+
+  if (lengthValue === 0 || (!upper && !lower && !num && !sym)) {
+    passText.textContent = "P4$5W0rD!";
+    passText.classList.remove("password-active");
+    updateStrengthDisplay("");
+    if (lengthValue === 0) lengthText.textContent = 0;
+    return;
+  }
+
+  const pass = genPassword(lengthValue, upper, lower, num, sym);
+  passText.textContent = pass;
+  lengthText.textContent = lengthValue;
+  passText.classList.add("password-active");
+
+  const strength = calculateStrength(lengthValue, upper, lower, num, sym);
+  updateStrengthDisplay(strength);
+}
+```
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+Although this project already taught me a lot, there's still one area I’d like to improve:
+enforcing the generated password to meet the user's selected requirements more reliably.
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+In future versions, I want to ensure that if the user selects uppercase, lowercase, numbers, or symbols, the generated password will always include at least one character from each selected type. This will make the password both stronger and more user-accurate.
 
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+- [Creating A Custom Range Input That Looks Consistent Across All Browsers](https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/) - This is an amazing article which helped me finally style the range input.
 
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+- [Pure CSS Custom Checkbox Style](https://moderncss.dev/pure-css-custom-checkbox-style/) - This article helped me get custom checbox style like the Figma design
+
+- [The filter(Boolean) Trick](https://michaeluloth.com/javascript-filter-boolean/) - This article helped me write calculateStrength function
+
+- [How to copy text to user's clicpboard](https://web.dev/patterns/clipboard/copy-text)
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- Frontend Mentor - [@JiaHe35354](https://www.frontendmentor.io/profile/JiaHe35354)
