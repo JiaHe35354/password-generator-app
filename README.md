@@ -1,22 +1,25 @@
-# Frontend Mentor - Password generator app
+# Frontend Mentor - Password generator app solution
 
-![Design preview for the Password generator app coding challenge](./preview.jpg)
+This is my solution to the [Password generator app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/password-generator-app-Mr8CLycqjh). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
-## Welcome! 👋
+## Table of contents
 
-Thanks for purchasing this premium Frontend Mentor coding challenge.
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [What I learned](#what-i-learned)
+  - [Continued development](#continued-development)
+  - [Useful resources](#useful-resources)
+- [Author](#author)
 
-[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects. These premium challenges are perfect portfolio pieces, so please feel free to use what you create in your portfolio to show others.
+## Overview
 
-**To do this challenge, you need a strong understanding of HTML, CSS, and JavaScript.**
+### The challenge
 
-## The challenge
-
-Your challenge is to build out this password generator app and get it looking as close to the design as possible.
-
-You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
-
-Your users should be able to:
+Users should be able to:
 
 - Generate a password based on the selected inclusion options
 - Copy the generated password to the computer's clipboard
@@ -24,70 +27,149 @@ Your users should be able to:
 - View the optimal layout for the interface depending on their device's screen size
 - See hover and focus states for all interactive elements on the page
 
-Want some support on the challenge? [Join our community](https://www.frontendmentor.io/community) and ask questions in the **#help** channel.
+### Screenshot
 
-## Where to find everything
+![Screenshot](./screenshot.png)
 
-Your task is to build out the project to the design file provided. You can download the Figma design file on the platform. **Please be sure not to share the Figma design file with anyone else.** The design download comes with a `README.md` file as well to help you get set up.
+### Links
 
-All the required assets for this project are in the `/assets` folder. The images are already exported for the correct screen size and optimized. Some are reusable at multiple screen sizes. So if you don't see an image in a specific folder, it will typically be in another folder for that page.
+- Solution URL: [My solution]()
+- Live Site URL: [Live site URL]()
 
-We also include variable and static font files for the required fonts for this project. You can choose to either link to Google Fonts or use the local font files to host the fonts yourself. Note that we've removed the static font files for the font weights that aren't needed for this project.
+## My process
 
-The design system in the design file will give you more information about the various colors, fonts, and styles used in this project. Our fonts always come from [Google Fonts](https://fonts.google.com/).
+### Built with
 
-## Building your project
+- Semantic HTML5 markup
+- CSS custom properties
+- Flexbox
+- Vanilla JavaScript
 
-Feel free to use any workflow that you feel comfortable with. Below is a suggested process, but do not feel like you need to follow these steps:
+### What I learned
 
-1. Separate the `starter-code` from the rest of this project and rename it to something meaningful for you. Initialize the codebase as a public repository on [GitHub](https://github.com/). Creating a repo will make it easier to share your code with the community if you need help. If you're not sure how to do this, [have a read-through of this Try Git resource](https://try.github.io/). **⚠️ IMPORTANT ⚠️: There are already a couple of `.gitignore` files in this project. Please do not remove them or change the content of the files. If you create a brand new project, please use the `.gitignore` files provided in your new codebase. This is to avoid the accidental upload of the Figma design file to GitHub. With these premium challenges, please be sure not to share the Figma design file in your GitHub repo. Thanks!**
-2. Configure your repository to publish your code to a web address. This will also be useful if you need some help during a challenge as you can share the URL for your project with your repo URL. There are a number of ways to do this, and we provide some recommendations below.
-3. Look through the designs to start planning out how you'll tackle the project. This step is crucial to help you think ahead for CSS classes to create reusable styles.
-4. Before adding any styles, structure your content with HTML. Writing your HTML first can help focus your attention on creating well-structured content.
-5. Write out the base styles for your project, including general content styles, such as `font-family` and `font-size`.
-6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.
+Throughout this project, I practiced my CSS and JavaScript skills by building a password generator. Here are some of the key things I learned:
 
-## Deploying your project
+#### How to Style the Range Input Across Browsers
 
-As mentioned above, there are many ways to host your project for free. Our recommended hosts are:
+Styling the input[type="range"] is tricky because different browsers render it differently by default. To make the styling consistent, I learned to use vendor-specific pseudo-elements like ::-webkit-slider-thumb for Chrome/Safari and ::-moz-range-thumb for Firefox.
 
-- [GitHub Pages](https://pages.github.com/)
-- [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
+Here's a simplified example of the cross-browser styling I implemented:
 
-You can host your site using one of these solutions or any of our other trusted providers. [Read more about our recommended and trusted hosts](https://medium.com/frontend-mentor/frontend-mentor-trusted-hosting-providers-bf000dfebe).
+```css
+input[type="range"]::-webkit-slider-runnable-track {
+  background: var(--color-grey-900);
+  height: 0.8rem;
+}
 
-## Create a custom `README.md`
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -10px;
+  background-color: var(--color-grey-200);
+  height: 2.8rem;
+  width: 2.8rem;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: all 0.2s ease-in-out;
+}
 
-We strongly recommend overwriting this `README.md` with a custom one. We've provided a template inside the [`README-template.md`](./README-template.md) file in this starter code.
+input[type="range"]::-moz-range-track {
+  background: var(--color-grey-900);
+  height: 0.8rem;
+}
 
-The template provides a guide for what to add. A custom `README` will help you explain your project and reflect on your learnings. Please feel free to edit our template as much as you like.
+input[type="range"]::-moz-range-thumb {
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-grey-200);
+  height: 2.8rem;
+  width: 2.8rem;
+  border: 2px solid transparent;
+  transition: all 0.2s ease-in-out;
+}
+```
 
-Once you've added your information to the template, delete this file and rename the `README-template.md` file to `README.md`. That will make it show up as your repository's README file.
+#### Generating Passwords with JavaScript Based on User Selections
 
-## Submitting your solution
+I used JavaScript to dynamically generate a password based on the user's selected options (uppercase, lowercase, numbers, and symbols). Here's how it works:
 
-Submit your solution on the platform for the rest of the community to see. Follow our ["Complete guide to submitting solutions"](https://medium.com/frontend-mentor/a-complete-guide-to-submitting-solutions-on-frontend-mentor-ac6384162248) for tips on how to do this.
+```js
+function genPassword(length, upper, lower, num, symbol) {
+  const lowerChars = "abcdefghijklmnopqrstuvwxyz";
+  const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const numChars = "0123456789";
+  const specialChars = "!@#$%^&*()-_=+[]{}|;:,.<>?";
 
-Remember, if you're looking for feedback on your solution, be sure to ask questions when submitting it. The more specific and detailed you are with your questions, the higher the chance you'll get valuable feedback from the community.
+  let chars = "";
+  if (upper) chars += upperChars;
+  if (lower) chars += lowerChars;
+  if (num) chars += numChars;
+  if (symbol) chars += specialChars;
 
-**⚠️ IMPORTANT ⚠️: With these premium challenges, please be sure not to upload the Figma design file to GitHub when you're submitting to the platform and sharing it around. If you've created a brand new project, the easiest way to do that is to copy across the `.gitignore` provided in this starter project.**
+  let pass = "";
+  for (let i = 0; i < length; i++) {
+    const randIdx = Math.floor(Math.random() * chars.length);
+    pass += chars[randIdx];
+  }
 
-## Sharing your solution
+  return pass;
+}
+```
 
-There are multiple places you can share your solution:
+#### Putting It All Together with the generate() Function
 
-1. Share your solution page in the **#finished-projects** channel of the [community](https://www.frontendmentor.io/community).
-2. Tweet [@frontendmentor](https://twitter.com/frontendmentor) and mention **@frontendmentor**, including the repo and live URLs in the tweet. We'd love to take a look at what you've built and help share it around.
-3. Share your solution on other social channels like LinkedIn.
-4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).
+The generate() function handles the UI logic and ensures that:
 
-We provide templates to help you share your solution once you've submitted it on the platform. Please do edit them and include specific questions when you're looking for feedback.
+- A default password is shown when no options are selected.
 
-The more specific you are with your questions the more likely it is that another member of the community will give you feedback.
+- A strong password is generated according to selected criteria.
 
-## Got feedback for us?
+- The password strength is evaluated and displayed visually.
 
-We love receiving feedback! We're always looking to improve our challenges and our platform. So if you have anything you'd like to mention, please email hi[at]frontendmentor[dot]io.
+```js
+function generate() {
+  const lengthValue = +rangeInput.value;
 
-**Have fun building!** 🚀
+  const upper = upperLetter.checked;
+  const lower = lowerLetter.checked;
+  const num = number.checked;
+  const sym = symbol.checked;
+
+  if (lengthValue === 0 || (!upper && !lower && !num && !sym)) {
+    passText.textContent = "P4$5W0rD!";
+    passText.classList.remove("password-active");
+    updateStrengthDisplay("");
+    if (lengthValue === 0) lengthText.textContent = 0;
+    return;
+  }
+
+  const pass = genPassword(lengthValue, upper, lower, num, sym);
+  passText.textContent = pass;
+  lengthText.textContent = lengthValue;
+  passText.classList.add("password-active");
+
+  const strength = calculateStrength(lengthValue, upper, lower, num, sym);
+  updateStrengthDisplay(strength);
+}
+```
+
+### Continued development
+
+Although this project already taught me a lot, there's still one area I’d like to improve:
+enforcing the generated password to meet the user's selected requirements more reliably.
+
+In future versions, I want to ensure that if the user selects uppercase, lowercase, numbers, or symbols, the generated password will always include at least one character from each selected type. This will make the password both stronger and more user-accurate.
+
+### Useful resources
+
+- [Creating A Custom Range Input That Looks Consistent Across All Browsers](https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/) - This is an amazing article which helped me finally style the range input.
+
+- [Pure CSS Custom Checkbox Style](https://moderncss.dev/pure-css-custom-checkbox-style/) - This article helped me get custom checbox style like the Figma design
+
+- [The filter(Boolean) Trick](https://michaeluloth.com/javascript-filter-boolean/) - This article helped me write calculateStrength function
+
+- [How to copy text to user's clicpboard](https://web.dev/patterns/clipboard/copy-text)
+
+## Author
+
+- Frontend Mentor - [@JiaHe35354](https://www.frontendmentor.io/profile/JiaHe35354)
